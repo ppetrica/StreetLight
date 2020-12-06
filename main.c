@@ -46,6 +46,18 @@ enum message_type {
 	 *        4 -> The bulb will stay OFF (default)
 	 */
 	MODE = 'm',
+	/**
+	 * Parameters - Retrieve the current settings of the microcontroller
+	 * { PARAMETERS }
+	 *
+	 * Response:
+	 * { mode, time_slot, luminosity, alive_time }
+	 * MODE - 1 byte
+	 * time_slot - { s_hour, s_minute, e_hour, e_minute } - 4 bytes
+	 * luminosity - 1 byte
+	 * alive_time - 1 byte
+	 */
+	PARAMETERS = 'p'
 };
 
 
@@ -76,8 +88,37 @@ XMC_RTC_TIME_t gmt_time;
 
 uint8_t mode = 4;
 
+uint8_t luminosity_measured;
+
 
 uint8_t message[64];
+
+
+int in_time_slot(const XMC_RTC_TIME_t *t) {
+	uint8_t hour = t->hours;
+	uint8_t minute = t->minutes;
+
+	int16_t minutes = hour * 60 + minute;
+
+	int16_t s_minutes = time_slot.s_hour * 60 + time_slot.s_minute;
+
+	int16_t e_minutes = time_slot.e_hour * 60 + time_slot.e_minute;
+
+	return (s_minutes < e_minutes)
+			? (minutes - s_minutes > 0 && minutes - e_minutes < 0)
+			: (minutes > s_minutes || minutes < e_minutes);
+}
+
+
+#define turn_on(bulb) DIGITAL_IO_SetOutputLow(&bulb)
+
+#define turn_off(bulb) DIGITAL_IO_SetOutputHigh(&bulb)
+
+
+enum mode1_state {
+	MODE1_INITIAL = 0,
+	MODE1_MAIN
+};
 
 
 int main(void) {
@@ -95,29 +136,63 @@ int main(void) {
 
 	UART_Receive(&BLT, message, 1); //Transmit the string "Infineon Technologies".
 
+	int last_mode = 4;
+	int state = 0;
 	while (1U) {
 		RTC_GetTime(&current_time);
 		BUS_IO_Write(&LEDS, ~(1 << mode));
 
+		if (last_mode != mode) {
+			state = 0;
+			if (last_mode == LUMINOSITY_CTRL) {
+				TIMER_Stop(&TIMER_ADC_SAMPLE);
+			}
+		}
+
 		switch (mode) {
 		case TIME_CTRL:
+			if (in_time_slot(&current_time)) {
+				turn_on(LBULB);
+			} else {
+				turn_off(LBULB);
+			}
 			break;
 		case LUMINOSITY_CTRL:
+			switch (state) {
+			case MODE1_INITIAL:
+			    TIMER_Start(&TIMER_ADC_SAMPLE);
+				ADC_MEASUREMENT_StartConversion(&ADC_LUMINOSITY);
+				state = MODE1_MAIN;
+				break;
+			case MODE1_MAIN:
+				if (in_time_slot(&current_time) && luminosity_measured < luminosity) {
+					turn_on(LBULB);
+				} else {
+					turn_off(LBULB);
+				}
+				break;
+			}
 			break;
 		case MOTION_CTRL:
+			/* TODO */
 			break;
 		case ON:
-			DIGITAL_IO_SetOutputLow(&LBULB);
+			turn_on(LBULB);
 			break;
 		case OFF:
 		default:
-			DIGITAL_IO_SetOutputHigh(&LBULB);
+			turn_off(LBULB);
 			break;
 		}
+
+		last_mode = mode;
 	}
 
 	return 1;
 }
+
+
+/** BLUETOOTH Communication */
 
 void EndofTransmit() {
 	UART_Receive(&BLT, message, 1);
@@ -149,6 +224,17 @@ void EndofReceive() //Callback function for "End of receive" event.
 		case MODE:
 			message_length = 1;
 			break;
+		case PARAMETERS:
+			message[0] = mode;
+			message[1] = time_slot.s_hour;
+			message[2] = time_slot.s_minute;
+			message[3] = time_slot.e_hour;
+			message[4] = time_slot.e_minute;
+			message[5] = luminosity;
+			message[6] = alive_time;
+			UART_Transmit(&BLT, message, 7);
+			message_type = 0;
+			return;
 		default:
 			UART_Transmit(&BLT, &E, 1);
 			message_type = 0;
@@ -190,3 +276,22 @@ void EndofReceive() //Callback function for "End of receive" event.
 	}
 }
 
+
+/** ADC luminosity */
+
+void EndofMeasure() {
+	// ADC uses 8 bits for conversion => 0 <= result <= 255
+	// 0V    ... 0
+	// 3.3V  ... 255
+	// 2.1V  ... 163
+
+	// 0V <= solar panel output <= 2.1V --> 0 <= lightLevel <=  163
+	luminosity_measured = (uint16_t)ADC_MEASUREMENT_GetResult(&ADC_MEASUREMENT_Channel_A) * 100 / 163;
+}
+
+/** ADC Timer */
+
+void TimerADCSampleInterrupt() {
+	DIGITAL_IO_ToggleOutput(&TIMER_ADC_LED);
+	ADC_MEASUREMENT_StartConversion(&ADC_LUMINOSITY);
+}

@@ -163,6 +163,7 @@
   </provided>
   <provided xsi:type="ResourceModel:BitField" name="PC6_2_0" URI="http://resources/48.0.0/port/p/5/iocr4/pc6_2_0" value="0x00000000" toolTipHelpDescription="Port Control for Port n Pin 4 to 7" defaultValue="0x00000000" startPos="19" stopPos="21" accessPermission="rw" maxValue="7" minValue="0"/>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P5.9 / #57" URI="http://resources/48.0.0/port/p/5/pad/9">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@hwResources.0"/>
     <resourcesList name="hwsel_hw" requiredResourceUri="http://resources/48.0.0/port/p/5/hwsel/hw9"/>
     <resourcesList name="in_p" requiredResourceUri="http://resources/48.0.0/port/p/5/in/p9"/>
     <resourcesList name="iocr_oe" requiredResourceUri="http://resources/48.0.0/port/p/5/iocr8/pc9_4"/>

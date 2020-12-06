@@ -91,6 +91,26 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
   {
 	 /**  Initialization of BUS_IO APP instance LEDS */
 	 init_status = (DAVE_STATUS_t)BUS_IO_Init(&LEDS); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of ADC_MEASUREMENT APP instance ADC_LUMINOSITY */
+	 init_status = (DAVE_STATUS_t)ADC_MEASUREMENT_Init(&ADC_LUMINOSITY); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of TIMER APP instance TIMER_ADC_SAMPLE */
+	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_ADC_SAMPLE); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of INTERRUPT APP instance INTERRUPT_0 */
+	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_0); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance TIMER_ADC_LED */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&TIMER_ADC_LED); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */

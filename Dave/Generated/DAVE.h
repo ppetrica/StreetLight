@@ -66,6 +66,21 @@
 
 #include "BUS_IO/bus_io.h"
   
+
+#include "GLOBAL_ADC/global_adc.h"
+  
+
+#include "ADC_MEASUREMENT/adc_measurement.h"
+  
+
+#include "GLOBAL_CCU4/global_ccu4.h"
+  
+
+#include "TIMER/timer.h"
+  
+
+#include "INTERRUPT/interrupt.h"
+  
 	
 
 /**********************************************************************************************************************

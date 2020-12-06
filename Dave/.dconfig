@@ -4,47 +4,66 @@
     <Solver>
         <SolverBndMap>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/pll" Proxy="app/CLOCK_XMC4/0/hwres_pll"/>
-            <BindMap MUri="peripheral/cpu/0/exception/memmanage" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_memmanage"/>
-            <BindMap MUri="peripheral/scu/0/gcu/interrupt/rtctick" Proxy="app/RTC/0/hwres_gcu_rtctick"/>
-            <BindMap MUri="port/p/0/pad/12" Proxy="app/DIGITAL_IO/0/hwres_port_pin"/>
-            <BindMap MUri="peripheral/scu/0/clkctrl/0/cpu" Proxy="app/CLOCK_XMC4/0/hwres_cpu"/>
-            <BindMap MUri="peripheral/scu/0/rtcclksel" Proxy="app/CLOCK_XMC4/0/hwres_rtcclksel"/>
-            <BindMap MUri="port/p/0/pad/15" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#0"/>
-            <BindMap MUri="port/p/3/pad/3" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#1"/>
             <BindMap MUri="port/debug_port/0/pad/0" Proxy="app/CPU_CTRL_XMC4/0/hwres_port_pad_swd_tck"/>
-            <BindMap MUri="port/p/0/pad/8" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#2"/>
-            <BindMap MUri="port/debug_port/0/pad/1" Proxy="app/CPU_CTRL_XMC4/0/hwres_port_pad_swd_tms"/>
+            <BindMap MUri="port/p/5/pad/9" Proxy="app/DIGITAL_IO/1/hwres_port_pin"/>
+            <BindMap MUri="port/p/14/pad/2" Proxy="app/ADC_MEASUREMENT/0/rarray_hwres_adc_measurement_channel_pin#1"/>
             <BindMap MUri="port/p/3/pad/12" Proxy="app/UART/0/hwres_port_pad_uart_rx"/>
-            <BindMap MUri="port/p/0/pad/6" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#3"/>
-            <BindMap MUri="devicepackage/0/135" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#0"/>
-            <BindMap MUri="port/p/6/pad/2" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#4"/>
-            <BindMap MUri="port/p/3/pad/11" Proxy="app/UART/0/hwres_port_pad_uart_tx"/>
-            <BindMap MUri="devicepackage/0/138" Proxy="app/DIGITAL_IO/0/__pin_hwres_port_pin"/>
-            <BindMap MUri="peripheral/usic/2/channel/1" Proxy="app/UART/0/hwres_usic_ch"/>
-            <BindMap MUri="devicepackage/0/127" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#2"/>
-            <BindMap MUri="devicepackage/0/132" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#1"/>
-            <BindMap MUri="devicepackage/0/99" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#4"/>
-            <BindMap MUri="devicepackage/0/140" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#3"/>
+            <BindMap MUri="peripheral/scu/0/gcu/ccu4_global_enable/3" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_scu_gcu_ccu4_global_enable"/>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/ccu" Proxy="app/CLOCK_XMC4/0/hwres_ccu"/>
-            <BindMap MUri="peripheral/cpu/0/exception/busfault" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_busfault"/>
+            <BindMap MUri="peripheral/vadc/0/group/1/ch/2" Proxy="app/ADC_MEASUREMENT/0/rarray_hwres_adc_measurement_channels#1"/>
             <BindMap MUri="devicepackage/0/10" Proxy="app/UART/0/__pin_hwres_port_pad_uart_tx"/>
             <BindMap MUri="peripheral/cpu/0/nvic/interrupt/99" Proxy="app/UART/0/hwres_nvic_node_tx"/>
+            <BindMap MUri="peripheral/cpu/0/exception/nmi" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_nmi"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/0/usb" Proxy="app/CLOCK_XMC4/0/hwres_usb"/>
+            <BindMap MUri="peripheral/vadc/0/backgnd" Proxy="app/ADC_MEASUREMENT/0/hwres_adc_measurement_background"/>
+            <BindMap MUri="peripheral/vadc/0/group/1/result_adv/3" Proxy="app/ADC_MEASUREMENT/0/rarray_hwres_adc_measurement_result_reg#1"/>
+            <BindMap MUri="peripheral/scu/0/gcu/interrupt/rtcalarm" Proxy="app/RTC/0/hwres_gcu_rtcalarm"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/0/ebu" Proxy="app/CLOCK_XMC4/0/hwres_ebu"/>
+            <BindMap MUri="peripheral/vadc/0/global" Proxy="app/GLOBAL_ADC/0/hwres_vadc_global"/>
+            <BindMap MUri="peripheral/vadc/0/global_limits" Proxy="app/GLOBAL_ADC/0/hwres_vadc_global_Limit"/>
+            <BindMap MUri="peripheral/cpu/0/exception/memmanage" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_memmanage"/>
+            <BindMap MUri="peripheral/scu/0/gcu/interrupt/rtctick" Proxy="app/RTC/0/hwres_gcu_rtctick"/>
+            <BindMap MUri="peripheral/ccu4/3/cc4/3" Proxy="app/TIMER/0/hwres_ccu4_cc4"/>
+            <BindMap MUri="port/p/0/pad/12" Proxy="app/DIGITAL_IO/0/hwres_port_pin"/>
+            <BindMap MUri="peripheral/scu/0/rtcclksel" Proxy="app/CLOCK_XMC4/0/hwres_rtcclksel"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/0/cpu" Proxy="app/CLOCK_XMC4/0/hwres_cpu"/>
+            <BindMap MUri="port/p/0/pad/15" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#0"/>
+            <BindMap MUri="port/p/3/pad/3" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#1"/>
+            <BindMap MUri="port/p/0/pad/8" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#2"/>
+            <BindMap MUri="port/debug_port/0/pad/1" Proxy="app/CPU_CTRL_XMC4/0/hwres_port_pad_swd_tms"/>
+            <BindMap MUri="devicepackage/0/135" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#0"/>
+            <BindMap MUri="port/p/6/pad/0" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#3"/>
+            <BindMap MUri="peripheral/vadc/0/class/0" Proxy="app/ADC_MEASUREMENT/0/hwres_adc_measurement_global_iclass"/>
+            <BindMap MUri="port/p/6/pad/2" Proxy="app/BUS_IO/0/rarray_hwres_port_pin#4"/>
+            <BindMap MUri="devicepackage/0/138" Proxy="app/DIGITAL_IO/0/__pin_hwres_port_pin"/>
+            <BindMap MUri="port/p/3/pad/11" Proxy="app/UART/0/hwres_port_pad_uart_tx"/>
+            <BindMap MUri="peripheral/usic/2/channel/1" Proxy="app/UART/0/hwres_usic_ch"/>
+            <BindMap MUri="devicepackage/0/127" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#2"/>
+            <BindMap MUri="peripheral/vadc/0/group/1/config" Proxy="app/GLOBAL_ADC/0/hwres_vadc_group1"/>
+            <BindMap MUri="devicepackage/0/132" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#1"/>
+            <BindMap MUri="peripheral/vadc/0/group/0/config" Proxy="app/GLOBAL_ADC/0/hwres_vadc_group0"/>
+            <BindMap MUri="peripheral/cpu/0/nvic/interrupt/57" Proxy="app/INTERRUPT/0/hwres_nvicnode"/>
+            <BindMap MUri="devicepackage/0/99" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#4"/>
+            <BindMap MUri="peripheral/vadc/0/group/3/config" Proxy="app/GLOBAL_ADC/0/hwres_vadc_group3"/>
+            <BindMap MUri="peripheral/vadc/0/group/2/config" Proxy="app/GLOBAL_ADC/0/hwres_vadc_group2"/>
+            <BindMap MUri="devicepackage/0/101" Proxy="app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#3"/>
+            <BindMap MUri="devicepackage/0/40" Proxy="app/ADC_MEASUREMENT/0/rarray_hwres_adc_measurement_pin_pad#1"/>
+            <BindMap MUri="peripheral/cpu/0/exception/busfault" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_busfault"/>
             <BindMap MUri="peripheral/scu/0/trap/0/sysoscwd" Proxy="app/CLOCK_XMC4/0/hwres_sysoscwd_trap"/>
             <BindMap MUri="devicepackage/0/9" Proxy="app/UART/0/__pin_hwres_port_pad_uart_rx"/>
             <BindMap MUri="peripheral/cpu/0/nvic/interrupt/98" Proxy="app/UART/0/hwres_nvic_node_rx"/>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/sys" Proxy="app/CLOCK_XMC4/0/hwres_sys"/>
-            <BindMap MUri="peripheral/cpu/0/exception/nmi" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_nmi"/>
             <BindMap MUri="peripheral/cpu/0/debug" Proxy="app/CPU_CTRL_XMC4/0/hwres_swdclk"/>
-            <BindMap MUri="peripheral/cpu/0/exception/hardfault" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_hardfault"/>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/wdt" Proxy="app/CLOCK_XMC4/0/hwres_wdt"/>
+            <BindMap MUri="peripheral/cpu/0/exception/hardfault" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_hardfault"/>
             <BindMap MUri="peripheral/scu/0/trap/0/ulpwdg" Proxy="app/CLOCK_XMC4/0/hwres_ulpwdg_trap"/>
-            <BindMap MUri="peripheral/scu/0/clkctrl/0/usb" Proxy="app/CLOCK_XMC4/0/hwres_usb"/>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/sdmmc" Proxy="app/CLOCK_XMC4/0/hwres_mmc"/>
-            <BindMap MUri="peripheral/scu/0/gcu/interrupt/rtcalarm" Proxy="app/RTC/0/hwres_gcu_rtcalarm"/>
             <BindMap MUri="peripheral/scu/0/pwrctrl/0/hibernate" Proxy="app/CLOCK_XMC4/0/hwres_hibernate"/>
             <BindMap MUri="peripheral/scu/0/trap/0/sysvcolock" Proxy="app/CLOCK_XMC4/0/hwres_sysvcolock_trap"/>
+            <BindMap MUri="peripheral/cpu/0/nvic/interrupt/16" Proxy="app/ADC_MEASUREMENT/0/hwres_adc_measurement_nvicnode_srcevt"/>
+            <BindMap MUri="devicepackage/0/57" Proxy="app/DIGITAL_IO/1/__pin_hwres_port_pin"/>
             <BindMap MUri="peripheral/cpu/0/exception/usagefault" Proxy="app/CPU_CTRL_XMC4/0/hwres_exception_usagefault"/>
-            <BindMap MUri="peripheral/scu/0/clkctrl/0/ebu" Proxy="app/CLOCK_XMC4/0/hwres_ebu"/>
+            <BindMap MUri="peripheral/ccu4/3/global" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_ccu4_global"/>
             <BindMap MUri="peripheral/scu/0/trap/0/usbvcolock" Proxy="app/CLOCK_XMC4/0/hwres_usbvcolock_trap"/>
             <BindMap MUri="peripheral/scu/0/clkctrl/0/perbridge" Proxy="app/CLOCK_XMC4/0/hwres_perbridge"/>
         </SolverBndMap>

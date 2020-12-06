@@ -67,6 +67,8 @@
 
 extern const DIGITAL_IO_t LBULB; 
 	
+extern const DIGITAL_IO_t TIMER_ADC_LED; 
+	
  
 #endif  /* DIGITAL_IO_EXTERN_H */
 

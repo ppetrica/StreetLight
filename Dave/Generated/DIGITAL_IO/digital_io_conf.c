@@ -66,3 +66,15 @@ const DIGITAL_IO_t LBULB =
   .hwctrl = XMC_GPIO_HWCTRL_DISABLED
 };
 		
+const DIGITAL_IO_t TIMER_ADC_LED =
+{
+  .gpio_port = XMC_GPIO_PORT5,
+  .gpio_pin = 9U,
+  .gpio_config = {
+    .mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+    .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW,
+
+  },
+  .hwctrl = XMC_GPIO_HWCTRL_DISABLED
+};
+		

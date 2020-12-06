@@ -21,6 +21,7 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin58"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="57" URI="http://resources/lqfp144.0.0/devicepackage/0/57">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@hwResources.1"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin57"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="78" URI="http://resources/lqfp144.0.0/devicepackage/0/78">
@@ -50,7 +51,17 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin127"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="140" URI="http://resources/lqfp144.0.0/devicepackage/0/140">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/BUS_IO/v4_0_2/BUS_IO_0.app#//@hwResources.19"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin140"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="101" URI="http://resources/lqfp144.0.0/devicepackage/0/101">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/BUS_IO/v4_0_2/BUS_IO_0.app#//@hwResources.19"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin101"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="30" URI="http://resources/lqfp144.0.0/devicepackage/0/30">
+    <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin30"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="40" URI="http://resources/lqfp144.0.0/devicepackage/0/40">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ADC_MEASUREMENT/v4_1_22/ADC_MEASUREMENT_0.app#//@hwResources.28"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/LQFP144.0.0/devicepackage/0/pin40"/>
   </provided>
 </ResourceModel:DevicePackage>
