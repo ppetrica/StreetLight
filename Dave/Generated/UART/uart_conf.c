@@ -88,10 +88,10 @@ extern void UART_lProtocolHandler(const UART_t * const handle);
 /**********************************************************************************************************************
  * DATA STRUCTURES
  **********************************************************************************************************************/
-UART_STATUS_t UART_0_init(void);
+UART_STATUS_t BLT_init(void);
 
 /*USIC channel configuration*/
-const XMC_UART_CH_CONFIG_t UART_0_channel_config =
+const XMC_UART_CH_CONFIG_t BLT_channel_config =
 {
   .baudrate      = 9600U,
   .data_bits     = 8U,
@@ -101,7 +101,7 @@ const XMC_UART_CH_CONFIG_t UART_0_channel_config =
   .parity_mode   = XMC_USIC_CH_PARITY_MODE_NONE
 };
 /*Transmit pin configuration*/
-const XMC_GPIO_CONFIG_t UART_0_tx_pin_config   = 
+const XMC_GPIO_CONFIG_t BLT_tx_pin_config   = 
 { 
   .mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1, 
   .output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
@@ -109,28 +109,28 @@ const XMC_GPIO_CONFIG_t UART_0_tx_pin_config   =
 };
 
 /*Transmit pin configuration used for initializing*/
-const UART_TX_CONFIG_t UART_0_tx_pin = 
+const UART_TX_CONFIG_t BLT_tx_pin = 
 {
   .port = (XMC_GPIO_PORT_t *)PORT3_BASE,
-  .config = &UART_0_tx_pin_config,
+  .config = &BLT_tx_pin_config,
   .pin = 11U
 };
 
 /*UART APP configuration structure*/
-const UART_CONFIG_t UART_0_config = 
+const UART_CONFIG_t BLT_config = 
 {
-  .channel_config   = &UART_0_channel_config,
+  .channel_config   = &BLT_channel_config,
 
 
-  .fptr_uart_config = UART_0_init,
-  .tx_cbhandler = NULL,
-  .rx_cbhandler = NULL,  
+  .fptr_uart_config = BLT_init,
+  .tx_cbhandler = EndofTransmit,
+  .rx_cbhandler = EndofReceive,  
   .sync_error_cbhandler = NULL,  
   .rx_noise_error_cbhandler = NULL,  
   .format_error_bit0_cbhandler = NULL,  
   .format_error_bit1_cbhandler = NULL,  
   .collision_error_cbhandler = NULL,
-  .tx_pin_config    = &UART_0_tx_pin,
+  .tx_pin_config    = &BLT_tx_pin,
   .mode             = UART_MODE_FULLDUPLEX,
   .transmit_mode = UART_TRANSFER_MODE_INTERRUPT,
   .receive_mode = UART_TRANSFER_MODE_INTERRUPT,
@@ -140,22 +140,22 @@ const UART_CONFIG_t UART_0_config =
 };
 
 /*Runtime handler*/
-UART_RUNTIME_t UART_0_runtime = 
+UART_RUNTIME_t BLT_runtime = 
 {
   .tx_busy = false,  
   .rx_busy = false,
 };
 
 /*APP handle structure*/
-UART_t UART_0 = 
+UART_t BLT = 
 {
   .channel = XMC_UART2_CH1,
-  .config  = &UART_0_config,
-  .runtime = &UART_0_runtime
+  .config  = &BLT_config,
+  .runtime = &BLT_runtime
 };
 
 /*Receive pin configuration*/
-const XMC_GPIO_CONFIG_t UART_0_rx_pin_config   = {
+const XMC_GPIO_CONFIG_t BLT_rx_pin_config   = {
   .mode             = XMC_GPIO_MODE_INPUT_TRISTATE,
   .output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
   .output_strength  = XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE
@@ -164,13 +164,13 @@ const XMC_GPIO_CONFIG_t UART_0_rx_pin_config   = {
  * API IMPLEMENTATION
  **********************************************************************************************************************/
 /*Channel initialization function*/
-UART_STATUS_t UART_0_init()
+UART_STATUS_t BLT_init()
 {
   UART_STATUS_t status = UART_STATUS_SUCCESS;
   /*Configure Receive pin*/
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 12U, &UART_0_rx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 12U, &BLT_rx_pin_config);
   /* Initialize USIC channel in UART mode*/
-  XMC_UART_CH_Init(XMC_UART2_CH1, &UART_0_channel_config);
+  XMC_UART_CH_Init(XMC_UART2_CH1, &BLT_channel_config);
   /*Set input source path*/
   XMC_USIC_CH_SetInputSource(XMC_UART2_CH1, XMC_USIC_CH_INPUT_DX0, 3U);
   /*Configure transmit FIFO*/
@@ -187,7 +187,7 @@ UART_STATUS_t UART_0_init()
   XMC_UART_CH_Start(XMC_UART2_CH1);
 
   /* Initialize UART TX pin */
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 11U, &UART_0_tx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 11U, &BLT_tx_pin_config);
 
   /*Set service request for UART protocol events*/
   XMC_USIC_CH_SetInterruptNodePointer(XMC_UART2_CH1, XMC_USIC_CH_INTERRUPT_NODE_POINTER_PROTOCOL,
@@ -212,15 +212,15 @@ UART_STATUS_t UART_0_init()
 }
 /*Interrupt handlers*/
 /*Transmit ISR*/
-void UART_0_TX_HANDLER()
+void BLT_TX_HANDLER()
 {
-  UART_lTransmitHandler(&UART_0);
+  UART_lTransmitHandler(&BLT);
 }
 
 /*Receive ISR*/
-void UART_0_RX_HANDLER()
+void BLT_RX_HANDLER()
 {
-  UART_lReceiveHandler(&UART_0);
+  UART_lReceiveHandler(&BLT);
 }
 
 /*CODE_BLOCK_END*/

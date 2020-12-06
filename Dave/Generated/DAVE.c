@@ -74,13 +74,23 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-	 /**  Initialization of UART APP instance UART_0 */
-	 init_status = (DAVE_STATUS_t)UART_Init(&UART_0); 
+	 /**  Initialization of UART APP instance BLT */
+	 init_status = (DAVE_STATUS_t)UART_Init(&BLT); 
    } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
 	 /**  Initialization of RTC APP instance RTC_0 */
 	 init_status = (DAVE_STATUS_t)RTC_Init(&RTC_0); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance LBULB */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LBULB); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of BUS_IO APP instance LEDS */
+	 init_status = (DAVE_STATUS_t)BUS_IO_Init(&LEDS); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */
