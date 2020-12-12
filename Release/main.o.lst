@@ -1,0 +1,574 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,4
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "main.c"
+  16              	 .section .text.in_time_slot,"ax",%progbits
+  17              	 .align 1
+  18              	 .global in_time_slot
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	in_time_slot:
+  23              	 
+  24              	 
+  25 0000 10B5     	 push {r4,lr}
+  26 0002 8378     	 ldrb r3,[r0,#2]
+  27 0004 4278     	 ldrb r2,[r0,#1]
+  28 0006 164C     	 ldr r4,.L7
+  29 0008 03F01F03 	 and r3,r3,#31
+  30 000c 02F03F02 	 and r2,r2,#63
+  31 0010 C3EB0313 	 rsb r3,r3,r3,lsl#4
+  32 0014 02EB8303 	 add r3,r2,r3,lsl#2
+  33 0018 2278     	 ldrb r2,[r4]
+  34 001a 6178     	 ldrb r1,[r4,#1]
+  35 001c A078     	 ldrb r0,[r4,#2]
+  36 001e C2EB0212 	 rsb r2,r2,r2,lsl#4
+  37 0022 01EB8202 	 add r2,r1,r2,lsl#2
+  38 0026 E178     	 ldrb r1,[r4,#3]
+  39 0028 C0EB0010 	 rsb r0,r0,r0,lsl#4
+  40 002c 01EB8000 	 add r0,r1,r0,lsl#2
+  41 0030 12B2     	 sxth r2,r2
+  42 0032 00B2     	 sxth r0,r0
+  43 0034 8242     	 cmp r2,r0
+  44 0036 9BB2     	 uxth r3,r3
+  45 0038 05DA     	 bge .L2
+  46 003a 9A1A     	 subs r2,r3,r2
+  47 003c 002A     	 cmp r2,#0
+  48 003e 0ADD     	 ble .L4
+  49 0040 181A     	 subs r0,r3,r0
+  50 0042 C00F     	 lsrs r0,r0,#31
+  51 0044 10BD     	 pop {r4,pc}
+  52              	.L2:
+  53 0046 1BB2     	 sxth r3,r3
+  54 0048 9342     	 cmp r3,r2
+  55 004a 06DC     	 bgt .L5
+  56 004c 8342     	 cmp r3,r0
+  57 004e ACBF     	 ite ge
+  58 0050 0020     	 movge r0,#0
+  59 0052 0120     	 movlt r0,#1
+  60 0054 10BD     	 pop {r4,pc}
+  61              	.L4:
+  62 0056 0020     	 movs r0,#0
+  63 0058 10BD     	 pop {r4,pc}
+  64              	.L5:
+  65 005a 0120     	 movs r0,#1
+  66 005c 10BD     	 pop {r4,pc}
+  67              	.L8:
+  68 005e 00BF     	 .align 2
+  69              	.L7:
+  70 0060 00000000 	 .word .LANCHOR0
+  72              	 .section .text.startup.main,"ax",%progbits
+  73              	 .align 1
+  74              	 .global main
+  75              	 .thumb
+  76              	 .thumb_func
+  78              	main:
+  79              	 
+  80              	 
+  81 0000 2DE9F347 	 push {r0,r1,r4,r5,r6,r7,r8,r9,r10,lr}
+  82 0004 FFF7FEFF 	 bl DAVE_Init
+  83 0008 0128     	 cmp r0,#1
+  84 000a 00D1     	 bne .L10
+  85              	.L11:
+  86 000c FEE7     	 b .L11
+  87              	.L10:
+  88 000e 4049     	 ldr r1,.L32
+  89 0010 4048     	 ldr r0,.L32+4
+  90 0012 414E     	 ldr r6,.L32+8
+  91 0014 0122     	 movs r2,#1
+  92 0016 FFF7FEFF 	 bl UART_Receive
+  93 001a 404B     	 ldr r3,.L32+12
+  94 001c 4048     	 ldr r0,.L32+16
+  95 001e 1D7C     	 ldrb r5,[r3,#16]
+  96 0020 1C68     	 ldr r4,[r3]
+  97 0022 3378     	 ldrb r3,[r6]
+  98 0024 0121     	 movs r1,#1
+  99 0026 01FA05F9 	 lsl r9,r1,r5
+ 100 002a 9940     	 lsls r1,r1,r3
+ 101 002c C943     	 mvns r1,r1
+ 102 002e C4F80490 	 str r9,[r4,#4]
+ 103 0032 89B2     	 uxth r1,r1
+ 104 0034 FFF7FEFF 	 bl BUS_IO_Write
+ 105 0038 4FF48037 	 mov r7,#65536
+ 106 003c AF40     	 lsls r7,r7,r5
+ 107 003e 4FF00008 	 mov r8,#0
+ 108 0042 0425     	 movs r5,#4
+ 109              	.L26:
+ 110 0044 6846     	 mov r0,sp
+ 111 0046 FFF7FEFF 	 bl RTC_GetTime
+ 112 004a 3378     	 ldrb r3,[r6]
+ 113 004c 9D42     	 cmp r5,r3
+ 114 004e 16D0     	 beq .L12
+ 115 0050 032B     	 cmp r3,#3
+ 116 0052 04D0     	 beq .L14
+ 117 0054 042B     	 cmp r3,#4
+ 118 0056 03D1     	 bne .L13
+ 119 0058 C4F80490 	 str r9,[r4,#4]
+ 120 005c 00E0     	 b .L13
+ 121              	.L14:
+ 122 005e 6760     	 str r7,[r4,#4]
+ 123              	.L13:
+ 124 0060 012D     	 cmp r5,#1
+ 125 0062 02D1     	 bne .L16
+ 126 0064 2F48     	 ldr r0,.L32+20
+ 127 0066 FFF7FEFF 	 bl TIMER_Stop
+ 128              	.L16:
+ 129 006a 3378     	 ldrb r3,[r6]
+ 130 006c 2C48     	 ldr r0,.L32+16
+ 131 006e 0121     	 movs r1,#1
+ 132 0070 9940     	 lsls r1,r1,r3
+ 133 0072 C943     	 mvns r1,r1
+ 134 0074 89B2     	 uxth r1,r1
+ 135 0076 FFF7FEFF 	 bl BUS_IO_Write
+ 136 007a 4FF00008 	 mov r8,#0
+ 137              	.L12:
+ 138 007e 3578     	 ldrb r5,[r6]
+ 139 0080 012D     	 cmp r5,#1
+ 140 0082 08D0     	 beq .L18
+ 141 0084 02D3     	 bcc .L19
+ 142 0086 022D     	 cmp r5,#2
+ 143 0088 23D0     	 beq .L20
+ 144 008a 3FE0     	 b .L17
+ 145              	.L19:
+ 146 008c 6846     	 mov r0,sp
+ 147 008e FFF7FEFF 	 bl in_time_slot
+ 148 0092 D8B1     	 cbz r0,.L24
+ 149 0094 18E0     	 b .L30
+ 150              	.L18:
+ 151 0096 B8F1000F 	 cmp r8,#0
+ 152 009a 03D0     	 beq .L22
+ 153 009c B8F1010F 	 cmp r8,#1
+ 154 00a0 08D0     	 beq .L23
+ 155 00a2 33E0     	 b .L17
+ 156              	.L22:
+ 157 00a4 1F48     	 ldr r0,.L32+20
+ 158 00a6 FFF7FEFF 	 bl TIMER_Start
+ 159 00aa 1F48     	 ldr r0,.L32+24
+ 160 00ac FFF7FEFF 	 bl ADC_MEASUREMENT_StartConversion
+ 161 00b0 A846     	 mov r8,r5
+ 162 00b2 2BE0     	 b .L17
+ 163              	.L23:
+ 164 00b4 6846     	 mov r0,sp
+ 165 00b6 FFF7FEFF 	 bl in_time_slot
+ 166 00ba 38B1     	 cbz r0,.L24
+ 167 00bc 1B4B     	 ldr r3,.L32+28
+ 168 00be 1A78     	 ldrb r2,[r3]
+ 169 00c0 1B4B     	 ldr r3,.L32+32
+ 170 00c2 1B78     	 ldrb r3,[r3]
+ 171 00c4 9A42     	 cmp r2,r3
+ 172 00c6 01D2     	 bcs .L24
+ 173              	.L30:
+ 174 00c8 6760     	 str r7,[r4,#4]
+ 175 00ca 1FE0     	 b .L17
+ 176              	.L24:
+ 177 00cc C4F80490 	 str r9,[r4,#4]
+ 178 00d0 1CE0     	 b .L17
+ 179              	.L20:
+ 180 00d2 184A     	 ldr r2,.L32+36
+ 181 00d4 DFF864A0 	 ldr r10,.L32+44
+ 182 00d8 1368     	 ldr r3,[r2]
+ 183 00da 127C     	 ldrb r2,[r2,#16]
+ 184 00dc 5B6A     	 ldr r3,[r3,#36]
+ 185 00de D340     	 lsrs r3,r3,r2
+ 186 00e0 13F00105 	 ands r5,r3,#1
+ 187 00e4 0AD0     	 beq .L25
+ 188 00e6 6760     	 str r7,[r4,#4]
+ 189 00e8 1348     	 ldr r0,.L32+40
+ 190 00ea FFF7FEFF 	 bl TIMER_Stop
+ 191 00ee 9AF81030 	 ldrb r3,[r10,#16]
+ 192 00f2 DAF80020 	 ldr r2,[r10]
+ 193 00f6 05FA03F3 	 lsl r3,r5,r3
+ 194 00fa 06E0     	 b .L31
+ 195              	.L25:
+ 196 00fc 9AF81010 	 ldrb r1,[r10,#16]
+ 197 0100 DAF80020 	 ldr r2,[r10]
+ 198 0104 4FF48033 	 mov r3,#65536
+ 199 0108 8B40     	 lsls r3,r3,r1
+ 200              	.L31:
+ 201 010a 5360     	 str r3,[r2,#4]
+ 202              	.L17:
+ 203 010c 3578     	 ldrb r5,[r6]
+ 204 010e 99E7     	 b .L26
+ 205              	.L33:
+ 206              	 .align 2
+ 207              	.L32:
+ 208 0110 00000000 	 .word message
+ 209 0114 00000000 	 .word BLT
+ 210 0118 00000000 	 .word .LANCHOR1
+ 211 011c 00000000 	 .word LBULB
+ 212 0120 00000000 	 .word LEDS
+ 213 0124 00000000 	 .word TIMER_ADC_SAMPLE
+ 214 0128 00000000 	 .word ADC_LUMINOSITY
+ 215 012c 00000000 	 .word luminosity_measured
+ 216 0130 00000000 	 .word .LANCHOR2
+ 217 0134 00000000 	 .word MOTION_INPUT
+ 218 0138 00000000 	 .word TIMER_ALIVE
+ 219 013c 00000000 	 .word LED_MOTION
+ 221              	 .section .text.EndofTransmit,"ax",%progbits
+ 222              	 .align 1
+ 223              	 .global EndofTransmit
+ 224              	 .thumb
+ 225              	 .thumb_func
+ 227              	EndofTransmit:
+ 228              	 
+ 229              	 
+ 230              	 
+ 231 0000 0248     	 ldr r0,.L35
+ 232 0002 0349     	 ldr r1,.L35+4
+ 233 0004 0122     	 movs r2,#1
+ 234 0006 FFF7FEBF 	 b UART_Receive
+ 235              	.L36:
+ 236 000a 00BF     	 .align 2
+ 237              	.L35:
+ 238 000c 00000000 	 .word BLT
+ 239 0010 00000000 	 .word message
+ 241              	 .section .text.EndofReceive,"ax",%progbits
+ 242              	 .align 1
+ 243              	 .global EndofReceive
+ 244              	 .thumb
+ 245              	 .thumb_func
+ 247              	EndofReceive:
+ 248              	 
+ 249              	 
+ 250 0000 70B5     	 push {r4,r5,r6,lr}
+ 251 0002 4B4E     	 ldr r6,.L58
+ 252 0004 3478     	 ldrb r4,[r6]
+ 253 0006 3546     	 mov r5,r6
+ 254 0008 002C     	 cmp r4,#0
+ 255 000a 3BD1     	 bne .L38
+ 256 000c 4949     	 ldr r1,.L58+4
+ 257 000e 0B78     	 ldrb r3,[r1]
+ 258 0010 3370     	 strb r3,[r6]
+ 259 0012 6D2B     	 cmp r3,#109
+ 260 0014 06D8     	 bhi .L40
+ 261 0016 6C2B     	 cmp r3,#108
+ 262 0018 09D2     	 bcs .L41
+ 263 001a 612B     	 cmp r3,#97
+ 264 001c 07D0     	 beq .L41
+ 265 001e 672B     	 cmp r3,#103
+ 266 0020 29D0     	 beq .L53
+ 267 0022 1EE0     	 b .L39
+ 268              	.L40:
+ 269 0024 702B     	 cmp r3,#112
+ 270 0026 04D0     	 beq .L43
+ 271 0028 742B     	 cmp r3,#116
+ 272 002a 22D0     	 beq .L44
+ 273 002c 19E0     	 b .L39
+ 274              	.L41:
+ 275 002e 0122     	 movs r2,#1
+ 276 0030 22E0     	 b .L42
+ 277              	.L43:
+ 278 0032 414B     	 ldr r3,.L58+8
+ 279 0034 4148     	 ldr r0,.L58+12
+ 280 0036 1B78     	 ldrb r3,[r3]
+ 281 0038 0B70     	 strb r3,[r1]
+ 282 003a 414B     	 ldr r3,.L58+16
+ 283 003c 1A78     	 ldrb r2,[r3]
+ 284 003e 4A70     	 strb r2,[r1,#1]
+ 285 0040 5A78     	 ldrb r2,[r3,#1]
+ 286 0042 8A70     	 strb r2,[r1,#2]
+ 287 0044 9A78     	 ldrb r2,[r3,#2]
+ 288 0046 DB78     	 ldrb r3,[r3,#3]
+ 289 0048 0B71     	 strb r3,[r1,#4]
+ 290 004a 3E4B     	 ldr r3,.L58+20
+ 291 004c CA70     	 strb r2,[r1,#3]
+ 292 004e 1B78     	 ldrb r3,[r3]
+ 293 0050 4B71     	 strb r3,[r1,#5]
+ 294 0052 3D4B     	 ldr r3,.L58+24
+ 295 0054 0722     	 movs r2,#7
+ 296 0056 1B78     	 ldrb r3,[r3]
+ 297 0058 8B71     	 strb r3,[r1,#6]
+ 298 005a FFF7FEFF 	 bl UART_Transmit
+ 299 005e 3470     	 strb r4,[r6]
+ 300 0060 70BD     	 pop {r4,r5,r6,pc}
+ 301              	.L39:
+ 302 0062 3648     	 ldr r0,.L58+12
+ 303 0064 3949     	 ldr r1,.L58+28
+ 304 0066 0122     	 movs r2,#1
+ 305 0068 FFF7FEFF 	 bl UART_Transmit
+ 306 006c 0023     	 movs r3,#0
+ 307 006e 2B70     	 strb r3,[r5]
+ 308 0070 70BD     	 pop {r4,r5,r6,pc}
+ 309              	.L44:
+ 310 0072 0422     	 movs r2,#4
+ 311 0074 00E0     	 b .L42
+ 312              	.L53:
+ 313 0076 0722     	 movs r2,#7
+ 314              	.L42:
+ 315 0078 3048     	 ldr r0,.L58+12
+ 316 007a 3549     	 ldr r1,.L58+32
+ 317 007c BDE87040 	 pop {r4,r5,r6,lr}
+ 318 0080 FFF7FEBF 	 b UART_Receive
+ 319              	.L38:
+ 320 0084 6C2C     	 cmp r4,#108
+ 321 0086 36D0     	 beq .L47
+ 322 0088 26D8     	 bhi .L48
+ 323 008a 612C     	 cmp r4,#97
+ 324 008c 37D0     	 beq .L49
+ 325 008e 672C     	 cmp r4,#103
+ 326 0090 44D1     	 bne .L46
+ 327 0092 3048     	 ldr r0,.L58+36
+ 328 0094 274B     	 ldr r3,.L58+4
+ 329 0096 0278     	 ldrb r2,[r0]
+ 330 0098 5978     	 ldrb r1,[r3,#1]
+ 331 009a 61F30502 	 bfi r2,r1,#0,#6
+ 332 009e 0270     	 strb r2,[r0]
+ 333 00a0 9978     	 ldrb r1,[r3,#2]
+ 334 00a2 4278     	 ldrb r2,[r0,#1]
+ 335 00a4 61F30502 	 bfi r2,r1,#0,#6
+ 336 00a8 4270     	 strb r2,[r0,#1]
+ 337 00aa D978     	 ldrb r1,[r3,#3]
+ 338 00ac 8278     	 ldrb r2,[r0,#2]
+ 339 00ae 61F30402 	 bfi r2,r1,#0,#5
+ 340 00b2 8270     	 strb r2,[r0,#2]
+ 341 00b4 1979     	 ldrb r1,[r3,#4]
+ 342 00b6 C278     	 ldrb r2,[r0,#3]
+ 343 00b8 61F30402 	 bfi r2,r1,#0,#5
+ 344 00bc C270     	 strb r2,[r0,#3]
+ 345 00be 5979     	 ldrb r1,[r3,#5]
+ 346 00c0 4279     	 ldrb r2,[r0,#5]
+ 347 00c2 61F30302 	 bfi r2,r1,#0,#4
+ 348 00c6 4271     	 strb r2,[r0,#5]
+ 349 00c8 9A79     	 ldrb r2,[r3,#6]
+ 350 00ca DB79     	 ldrb r3,[r3,#7]
+ 351 00cc 43EA0223 	 orr r3,r3,r2,lsl#8
+ 352 00d0 C380     	 strh r3,[r0,#6]
+ 353 00d2 FFF7FEFF 	 bl RTC_SetTime
+ 354 00d6 21E0     	 b .L46
+ 355              	.L48:
+ 356 00d8 6D2C     	 cmp r4,#109
+ 357 00da 1BD0     	 beq .L51
+ 358 00dc 742C     	 cmp r4,#116
+ 359 00de 1DD1     	 bne .L46
+ 360 00e0 144A     	 ldr r2,.L58+4
+ 361 00e2 174B     	 ldr r3,.L58+16
+ 362 00e4 5178     	 ldrb r1,[r2,#1]
+ 363 00e6 1970     	 strb r1,[r3]
+ 364 00e8 9178     	 ldrb r1,[r2,#2]
+ 365 00ea 5970     	 strb r1,[r3,#1]
+ 366 00ec D178     	 ldrb r1,[r2,#3]
+ 367 00ee 1279     	 ldrb r2,[r2,#4]
+ 368 00f0 9970     	 strb r1,[r3,#2]
+ 369 00f2 DA70     	 strb r2,[r3,#3]
+ 370 00f4 12E0     	 b .L46
+ 371              	.L47:
+ 372 00f6 0F4B     	 ldr r3,.L58+4
+ 373 00f8 5A78     	 ldrb r2,[r3,#1]
+ 374 00fa 124B     	 ldr r3,.L58+20
+ 375 00fc 0DE0     	 b .L57
+ 376              	.L49:
+ 377 00fe 0D4B     	 ldr r3,.L58+4
+ 378 0100 1548     	 ldr r0,.L58+40
+ 379 0102 5978     	 ldrb r1,[r3,#1]
+ 380 0104 104B     	 ldr r3,.L58+24
+ 381 0106 1970     	 strb r1,[r3]
+ 382 0108 144B     	 ldr r3,.L58+44
+ 383 010a 0339     	 subs r1,r1,#3
+ 384 010c 5943     	 muls r1,r3,r1
+ 385 010e FFF7FEFF 	 bl TIMER_SetTimeInterval
+ 386 0112 03E0     	 b .L46
+ 387              	.L51:
+ 388 0114 074B     	 ldr r3,.L58+4
+ 389 0116 5A78     	 ldrb r2,[r3,#1]
+ 390 0118 074B     	 ldr r3,.L58+8
+ 391              	.L57:
+ 392 011a 1A70     	 strb r2,[r3]
+ 393              	.L46:
+ 394 011c 0023     	 movs r3,#0
+ 395 011e 2B70     	 strb r3,[r5]
+ 396 0120 0648     	 ldr r0,.L58+12
+ 397 0122 0F49     	 ldr r1,.L58+48
+ 398 0124 0122     	 movs r2,#1
+ 399 0126 BDE87040 	 pop {r4,r5,r6,lr}
+ 400 012a FFF7FEBF 	 b UART_Transmit
+ 401              	.L59:
+ 402 012e 00BF     	 .align 2
+ 403              	.L58:
+ 404 0130 00000000 	 .word .LANCHOR3
+ 405 0134 00000000 	 .word message
+ 406 0138 00000000 	 .word .LANCHOR1
+ 407 013c 00000000 	 .word BLT
+ 408 0140 00000000 	 .word .LANCHOR0
+ 409 0144 00000000 	 .word .LANCHOR2
+ 410 0148 00000000 	 .word .LANCHOR4
+ 411 014c 00000000 	 .word .LANCHOR5
+ 412 0150 01000000 	 .word message+1
+ 413 0154 00000000 	 .word gmt_time
+ 414 0158 00000000 	 .word TIMER_ALIVE
+ 415 015c 40420F00 	 .word 1000000
+ 416 0160 00000000 	 .word .LANCHOR6
+ 418              	 .section .text.VADC0_C0_2_IRQHandler,"ax",%progbits
+ 419              	 .align 1
+ 420              	 .global VADC0_C0_2_IRQHandler
+ 421              	 .thumb
+ 422              	 .thumb_func
+ 424              	VADC0_C0_2_IRQHandler:
+ 425              	 
+ 426              	 
+ 427 0000 08B5     	 push {r3,lr}
+ 428 0002 0548     	 ldr r0,.L61
+ 429 0004 FFF7FEFF 	 bl ADC_MEASUREMENT_GetResult
+ 430 0008 6423     	 movs r3,#100
+ 431 000a 5843     	 muls r0,r3,r0
+ 432 000c A323     	 movs r3,#163
+ 433 000e 90FBF3F0 	 sdiv r0,r0,r3
+ 434 0012 024B     	 ldr r3,.L61+4
+ 435 0014 1870     	 strb r0,[r3]
+ 436 0016 08BD     	 pop {r3,pc}
+ 437              	.L62:
+ 438              	 .align 2
+ 439              	.L61:
+ 440 0018 00000000 	 .word ADC_MEASUREMENT_Channel_A_handle
+ 441 001c 00000000 	 .word luminosity_measured
+ 443              	 .section .text.CCU43_0_IRQHandler,"ax",%progbits
+ 444              	 .align 1
+ 445              	 .global CCU43_0_IRQHandler
+ 446              	 .thumb
+ 447              	 .thumb_func
+ 449              	CCU43_0_IRQHandler:
+ 450              	 
+ 451              	 
+ 452              	 
+ 453 0000 044B     	 ldr r3,.L64
+ 454 0002 0548     	 ldr r0,.L64+4
+ 455 0004 197C     	 ldrb r1,[r3,#16]
+ 456 0006 1A68     	 ldr r2,[r3]
+ 457 0008 4FF00113 	 mov r3,#65537
+ 458 000c 8B40     	 lsls r3,r3,r1
+ 459 000e 5360     	 str r3,[r2,#4]
+ 460 0010 FFF7FEBF 	 b ADC_MEASUREMENT_StartConversion
+ 461              	.L65:
+ 462              	 .align 2
+ 463              	.L64:
+ 464 0014 00000000 	 .word TIMER_ADC_LED
+ 465 0018 00000000 	 .word ADC_LUMINOSITY
+ 467              	 .section .text.TimerAliveExpire,"ax",%progbits
+ 468              	 .align 1
+ 469              	 .global TimerAliveExpire
+ 470              	 .thumb
+ 471              	 .thumb_func
+ 473              	TimerAliveExpire:
+ 474              	 
+ 475              	 
+ 476              	 
+ 477 0000 034B     	 ldr r3,.L67
+ 478 0002 197C     	 ldrb r1,[r3,#16]
+ 479 0004 1A68     	 ldr r2,[r3]
+ 480 0006 0123     	 movs r3,#1
+ 481 0008 8B40     	 lsls r3,r3,r1
+ 482 000a 5360     	 str r3,[r2,#4]
+ 483 000c 7047     	 bx lr
+ 484              	.L68:
+ 485 000e 00BF     	 .align 2
+ 486              	.L67:
+ 487 0010 00000000 	 .word LBULB
+ 489              	 .global message_type
+ 490              	 .global E
+ 491              	 .global A
+ 492              	 .comm message,64,1
+ 493              	 .comm luminosity_measured,1,1
+ 494              	 .global mode
+ 495              	 .comm gmt_time,8,4
+ 496              	 .global alive_time
+ 497              	 .global luminosity
+ 498              	 .global time_slot
+ 499              	 .section .bss.message_type,"aw",%nobits
+ 500              	 .set .LANCHOR3,.+0
+ 503              	message_type:
+ 504 0000 00       	 .space 1
+ 505              	 .section .data.A,"aw",%progbits
+ 506              	 .set .LANCHOR6,.+0
+ 509              	A:
+ 510 0000 41       	 .byte 65
+ 511              	 .section .data.alive_time,"aw",%progbits
+ 512              	 .set .LANCHOR4,.+0
+ 515              	alive_time:
+ 516 0000 0F       	 .byte 15
+ 517              	 .section .data.E,"aw",%progbits
+ 518              	 .set .LANCHOR5,.+0
+ 521              	E:
+ 522 0000 45       	 .byte 69
+ 523              	 .section .bss.luminosity,"aw",%nobits
+ 524              	 .set .LANCHOR2,.+0
+ 527              	luminosity:
+ 528 0000 00       	 .space 1
+ 529              	 .section .data.mode,"aw",%progbits
+ 530              	 .set .LANCHOR1,.+0
+ 533              	mode:
+ 534 0000 04       	 .byte 4
+ 535              	 .section .data.time_slot,"aw",%progbits
+ 536              	 .set .LANCHOR0,.+0
+ 539              	time_slot:
+ 540 0000 11       	 .byte 17
+ 541 0001 00       	 .byte 0
+ 542 0002 05       	 .byte 5
+ 543 0003 00       	 .byte 0
+ 544              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:17     .text.in_time_slot:00000000 $t
+    {standard input}:22     .text.in_time_slot:00000000 in_time_slot
+    {standard input}:70     .text.in_time_slot:00000060 $d
+    {standard input}:73     .text.startup.main:00000000 $t
+    {standard input}:78     .text.startup.main:00000000 main
+    {standard input}:208    .text.startup.main:00000110 $d
+                            *COM*:00000040 message
+                            *COM*:00000001 luminosity_measured
+    {standard input}:222    .text.EndofTransmit:00000000 $t
+    {standard input}:227    .text.EndofTransmit:00000000 EndofTransmit
+    {standard input}:238    .text.EndofTransmit:0000000c $d
+    {standard input}:242    .text.EndofReceive:00000000 $t
+    {standard input}:247    .text.EndofReceive:00000000 EndofReceive
+    {standard input}:404    .text.EndofReceive:00000130 $d
+                            *COM*:00000008 gmt_time
+    {standard input}:419    .text.VADC0_C0_2_IRQHandler:00000000 $t
+    {standard input}:424    .text.VADC0_C0_2_IRQHandler:00000000 VADC0_C0_2_IRQHandler
+    {standard input}:440    .text.VADC0_C0_2_IRQHandler:00000018 $d
+    {standard input}:444    .text.CCU43_0_IRQHandler:00000000 $t
+    {standard input}:449    .text.CCU43_0_IRQHandler:00000000 CCU43_0_IRQHandler
+    {standard input}:464    .text.CCU43_0_IRQHandler:00000014 $d
+    {standard input}:468    .text.TimerAliveExpire:00000000 $t
+    {standard input}:473    .text.TimerAliveExpire:00000000 TimerAliveExpire
+    {standard input}:487    .text.TimerAliveExpire:00000010 $d
+    {standard input}:503    .bss.message_type:00000000 message_type
+    {standard input}:521    .data.E:00000000 E
+    {standard input}:509    .data.A:00000000 A
+    {standard input}:533    .data.mode:00000000 mode
+    {standard input}:515    .data.alive_time:00000000 alive_time
+    {standard input}:527    .bss.luminosity:00000000 luminosity
+    {standard input}:539    .data.time_slot:00000000 time_slot
+    {standard input}:504    .bss.message_type:00000000 $d
+    {standard input}:528    .bss.luminosity:00000000 $d
+
+UNDEFINED SYMBOLS
+DAVE_Init
+UART_Receive
+BUS_IO_Write
+RTC_GetTime
+TIMER_Stop
+TIMER_Start
+ADC_MEASUREMENT_StartConversion
+BLT
+LBULB
+LEDS
+TIMER_ADC_SAMPLE
+ADC_LUMINOSITY
+MOTION_INPUT
+TIMER_ALIVE
+LED_MOTION
+UART_Transmit
+RTC_SetTime
+TIMER_SetTimeInterval
+ADC_MEASUREMENT_GetResult
+ADC_MEASUREMENT_Channel_A_handle
+TIMER_ADC_LED

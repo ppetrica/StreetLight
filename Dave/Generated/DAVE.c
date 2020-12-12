@@ -111,6 +111,26 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
   {
 	 /**  Initialization of DIGITAL_IO APP instance TIMER_ADC_LED */
 	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&TIMER_ADC_LED); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance MOTION_INPUT */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&MOTION_INPUT); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance LED_MOTION */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED_MOTION); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of TIMER APP instance TIMER_ALIVE */
+	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_ALIVE); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of INTERRUPT APP instance INTERRUPT_1 */
+	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_1); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */

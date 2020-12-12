@@ -90,7 +90,6 @@ uint8_t mode = 4;
 
 uint8_t luminosity_measured;
 
-
 uint8_t message[64];
 
 
@@ -134,19 +133,33 @@ int main(void) {
 
 	XMC_RTC_TIME_t current_time;
 
-	UART_Receive(&BLT, message, 1); //Transmit the string "Infineon Technologies".
+	UART_Receive(&BLT, message, 1);
 
 	int last_mode = 4;
 	int state = 0;
+	uint8_t last_motion = 0;
+
+	turn_off(LBULB);
+	BUS_IO_Write(&LEDS, ~(1 << mode));
+
 	while (1U) {
 		RTC_GetTime(&current_time);
-		BUS_IO_Write(&LEDS, ~(1 << mode));
 
 		if (last_mode != mode) {
+			switch(mode)
+			{
+				case ON:
+					turn_on(LBULB);
+					break;
+				case OFF:
+					turn_off(LBULB);
+					break;
+			}
 			state = 0;
 			if (last_mode == LUMINOSITY_CTRL) {
 				TIMER_Stop(&TIMER_ADC_SAMPLE);
 			}
+			BUS_IO_Write(&LEDS, ~(1 << mode));
 		}
 
 		switch (mode) {
@@ -173,15 +186,21 @@ int main(void) {
 				break;
 			}
 			break;
-		case MOTION_CTRL:
-			/* TODO */
-			break;
-		case ON:
-			turn_on(LBULB);
-			break;
-		case OFF:
-		default:
-			turn_off(LBULB);
+		case MOTION_CTRL:;
+			uint8_t motion = DIGITAL_IO_GetInput(&MOTION_INPUT);
+			if (last_motion == 0 && motion == 1)
+			{
+				turn_on(LBULB);
+				TIMER_Stop(&TIMER_ALIVE);
+			}
+			else if (last_motion == 1 && motion == 0)
+			{
+				TIMER_Start(&TIMER_ALIVE);
+			}
+			if (motion == 0)
+				DIGITAL_IO_SetOutputLow(&LED_MOTION);
+			else
+				DIGITAL_IO_SetOutputHigh(&LED_MOTION);
 			break;
 		}
 
@@ -255,6 +274,8 @@ void EndofReceive() //Callback function for "End of receive" event.
 			break;
 		case ALIVE_TIME:
 			alive_time = message[1];
+			uint32_t useconds = (alive_time - 3) * 1000000;
+			TIMER_SetTimeInterval(&TIMER_ALIVE, useconds);
 			break;
 		case GMT_TIME:
 			gmt_time.seconds = message[1];
@@ -294,4 +315,9 @@ void EndofMeasure() {
 void TimerADCSampleInterrupt() {
 	DIGITAL_IO_ToggleOutput(&TIMER_ADC_LED);
 	ADC_MEASUREMENT_StartConversion(&ADC_LUMINOSITY);
+}
+
+
+void TimerAliveExpire() {
+	turn_off(LBULB);
 }

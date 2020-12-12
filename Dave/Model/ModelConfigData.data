@@ -16,16 +16,16 @@
     <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/DEBUG/DEBUG_0.dd#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/cpu/cpu_0.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/cpu/cpu_0.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/usic1/usic1_1.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/usic1/usic1_1.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port1/port1_1.dd#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:DevicePackageNode">
-    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/"/>
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/RTC/v4_1_14/RTC_0.app#/"/>
@@ -34,19 +34,19 @@
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/usic2/usic2_2.dd#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port3/port3_3.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port3/port3_3.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_0.app#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port5/port5_5.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port5/port5_5.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/BUS_IO/v4_0_2/BUS_IO_0.app#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port0/port0_0.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port0/port0_0.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port6/port6_6.dd#/"/>
@@ -58,13 +58,13 @@
     <resource xsi:type="ResourceModel:App" href="APPS/ADC_MEASUREMENT/v4_1_22/ADC_MEASUREMENT_0.app#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/vadc/vadc_0.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/vadc/vadc_0.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port15/port15_15.dd#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port14/port14_14.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port14/port14_14.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_CCU4/v4_1_12/GLOBAL_CCU4_0.app#/"/>
@@ -73,13 +73,55 @@
     <resource xsi:type="ResourceModel:App" href="APPS/TIMER/v4_1_10/TIMER_0.app#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
-    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/ccu43/ccu43_3.dd#/"/>
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/ccu43/ccu43_3.dd#/0"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT/v4_0_8/INTERRUPT_0.app#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/vadc/vadc_0.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/ccu43/ccu43_3.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/DEBUG/DEBUG_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port5/port5_5.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/usic1/usic1_1.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:DevicePackageNode">
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/cpu/cpu_0.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port3/port3_3.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port0/port0_0.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/port14/port14_14.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/TIMER/v4_1_10/TIMER_1.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT/v4_0_8/INTERRUPT_1.app#/"/>
   </nodes>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.0"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.1"/>
@@ -90,6 +132,8 @@
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.22" target="//@nodes.0"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.23" target="//@nodes.22"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.25" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.39" target="//@nodes.22"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.40" target="//@nodes.1"/>
   <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.0"/>
   <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.5"/>
   <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.6"/>
@@ -211,4 +255,10 @@
   <hwConnections href="APPS/TIMER/v4_1_10/TIMER_0.app#//@connections.2"/>
   <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@connections.0"/>
   <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@connections.1"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#//@connections.1"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#//@connections.1"/>
+  <hwConnections href="APPS/TIMER/v4_1_10/TIMER_1.app#//@connections.0"/>
+  <hwConnections href="APPS/TIMER/v4_1_10/TIMER_1.app#//@connections.2"/>
 </ApplicationModel:ApplicationData>

@@ -57,7 +57,7 @@
 const DIGITAL_IO_t LBULB =
 {
   .gpio_port = XMC_GPIO_PORT0,
-  .gpio_pin = 12U,
+  .gpio_pin = 3U,
   .gpio_config = {
     .mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
     .output_level = XMC_GPIO_OUTPUT_LEVEL_HIGH,
@@ -70,6 +70,29 @@ const DIGITAL_IO_t TIMER_ADC_LED =
 {
   .gpio_port = XMC_GPIO_PORT5,
   .gpio_pin = 9U,
+  .gpio_config = {
+    .mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+    .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW,
+
+  },
+  .hwctrl = XMC_GPIO_HWCTRL_DISABLED
+};
+		
+const DIGITAL_IO_t MOTION_INPUT =
+{
+  .gpio_port = XMC_GPIO_PORT0,
+  .gpio_pin = 0U,
+  .gpio_config = {
+    .mode = XMC_GPIO_MODE_INPUT_TRISTATE,
+
+  },
+  .hwctrl = XMC_GPIO_HWCTRL_DISABLED
+};
+		
+const DIGITAL_IO_t LED_MOTION =
+{
+  .gpio_port = XMC_GPIO_PORT5,
+  .gpio_pin = 8U,
   .gpio_config = {
     .mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
     .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW,

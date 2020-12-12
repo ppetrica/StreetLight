@@ -52,11 +52,11 @@
 
 const BUS_IO_PORT_PIN_t LEDS_pin_list[] =
 {
-       {P0_15},
-       {P3_3},
-       {P0_8},
-       {P6_0},
-       {P6_2}
+       {P3_0},
+       {P3_1},
+       {P3_2},
+       {P0_9},
+       {P0_10}
 }; 
  
 BUS_IO_t LEDS =

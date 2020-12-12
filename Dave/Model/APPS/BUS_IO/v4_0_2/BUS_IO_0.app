@@ -34,16 +34,16 @@
   <virtualSignals name="bus_14_pin_signal" URI="http://resources/4.0.2/app/BUS_IO/0/vs_bus_io_pin_pad_signal_14" hwSignal="pin" hwResource="//@hwResources.30"/>
   <virtualSignals name="bus_15_pin_signal" URI="http://resources/4.0.2/app/BUS_IO/0/vs_bus_io_pin_pad_signal_15" hwSignal="pin" hwResource="//@hwResources.31"/>
   <hwResources name="pin_bus_0" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#0" resourceGroupUri="port/p/sv0/pad/*" solverVariable="true" mResGrpUri="port/p/sv0/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port0/port0_0.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port3/port3_3.dd#/1/@provided.10"/>
     <solverVarMap index="2">
-      <value variableName="sv0" solverValue="0"/>
+      <value variableName="sv0" solverValue="3"/>
     </solverVarMap>
     <solverVarMap index="2">
-      <value variableName="sv0" solverValue="0"/>
+      <value variableName="sv0" solverValue="3"/>
     </solverVarMap>
   </hwResources>
   <hwResources name="pin_bus_1" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#1" resourceGroupUri="port/p/sv1/pad/*" solverVariable="true" mResGrpUri="port/p/sv1/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port3/port3_3.dd#//@provided.11"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port3/port3_3.dd#/1/@provided.6"/>
     <solverVarMap index="2">
       <value variableName="sv1" solverValue="3"/>
     </solverVarMap>
@@ -52,33 +52,33 @@
     </solverVarMap>
   </hwResources>
   <hwResources name="pin_bus_2" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#2" resourceGroupUri="port/p/sv2/pad/*" solverVariable="true" mResGrpUri="port/p/sv2/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port0/port0_0.dd#//@provided.10"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port3/port3_3.dd#/1/@provided.0"/>
     <solverVarMap index="2">
-      <value variableName="sv2" solverValue="0"/>
+      <value variableName="sv2" solverValue="3"/>
     </solverVarMap>
     <solverVarMap index="2">
-      <value variableName="sv2" solverValue="0"/>
+      <value variableName="sv2" solverValue="3"/>
     </solverVarMap>
   </hwResources>
   <hwResources name="pin_bus_3" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#3" resourceGroupUri="port/p/sv3/pad/*" solverVariable="true" mResGrpUri="port/p/sv3/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port6/port6_6.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port0/port0_0.dd#/1/@provided.6"/>
     <solverVarMap index="2">
-      <value variableName="sv3" solverValue="6"/>
+      <value variableName="sv3" solverValue="0"/>
     </solverVarMap>
     <solverVarMap index="2">
-      <value variableName="sv3" solverValue="6"/>
+      <value variableName="sv3" solverValue="0"/>
     </solverVarMap>
   </hwResources>
   <hwResources name="pin_bus_4" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#4" resourceGroupUri="port/p/sv4/pad/*" solverVariable="true" mResGrpUri="port/p/sv4/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port6/port6_6.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port0/port0_0.dd#/1/@provided.0"/>
     <solverVarMap index="2">
-      <value variableName="sv4" solverValue="6"/>
+      <value variableName="sv4" solverValue="0"/>
     </solverVarMap>
     <solverVarMap index="2">
-      <value variableName="sv4" solverValue="6"/>
+      <value variableName="sv4" solverValue="0"/>
     </solverVarMap>
     <solverVarMap index="2">
-      <value variableName="sv4" solverValue="6"/>
+      <value variableName="sv4" solverValue="0"/>
     </solverVarMap>
   </hwResources>
   <hwResources name="pin_bus_5" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_port_pin#5" resourceGroupUri="" required="false" solverVariable="true" mResGrpUri="port/p/sv5/pad/*">
@@ -169,20 +169,20 @@
       <value variableName="sv15" solverValue=""/>
     </solverVarMap>
   </hwResources>
-  <hwResources name="pad_bus_0" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#0" resourceGroupUri="devicepackage/0/135" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.10"/>
+  <hwResources name="pad_bus_0" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#0" resourceGroupUri="devicepackage/0/7" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.7"/>
   </hwResources>
-  <hwResources name="pad_bus_1" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#1" resourceGroupUri="devicepackage/0/132" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.12"/>
+  <hwResources name="pad_bus_1" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#1" resourceGroupUri="devicepackage/0/6" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.8"/>
   </hwResources>
-  <hwResources name="pad_bus_2" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#2" resourceGroupUri="devicepackage/0/127" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.13"/>
+  <hwResources name="pad_bus_2" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#2" resourceGroupUri="devicepackage/0/5" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.9"/>
   </hwResources>
-  <hwResources name="pad_bus_3" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#3" resourceGroupUri="devicepackage/0/101" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.15"/>
+  <hwResources name="pad_bus_3" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#3" resourceGroupUri="devicepackage/0/4" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.4"/>
   </hwResources>
-  <hwResources name="pad_bus_4" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#4" resourceGroupUri="devicepackage/0/99" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.11"/>
+  <hwResources name="pad_bus_4" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#4" resourceGroupUri="devicepackage/0/3" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.5"/>
   </hwResources>
   <hwResources name="pad_bus_5" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#5" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>
   <hwResources name="pad_bus_6" URI="http://resources/4.0.2/app/BUS_IO/0/rarray_hwres_bus_io_pin_pad#6" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>

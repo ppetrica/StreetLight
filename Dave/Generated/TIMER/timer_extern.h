@@ -66,6 +66,9 @@
 /* Extern declaration of EVENT_DET APP handler */
 extern TIMER_t TIMER_ADC_SAMPLE;
 
+/* Extern declaration of EVENT_DET APP handler */
+extern TIMER_t TIMER_ALIVE;
+
 #endif /* TIMER_EXTERN_H */
 
 

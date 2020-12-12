@@ -69,6 +69,10 @@ extern const DIGITAL_IO_t LBULB;
 	
 extern const DIGITAL_IO_t TIMER_ADC_LED; 
 	
+extern const DIGITAL_IO_t MOTION_INPUT; 
+	
+extern const DIGITAL_IO_t LED_MOTION; 
+	
  
 #endif  /* DIGITAL_IO_EXTERN_H */
 

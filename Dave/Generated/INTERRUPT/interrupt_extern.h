@@ -56,13 +56,17 @@
  * MACROS
  **********************************************************************************************************************/
 	
-#define TimerADCSampleInterrupt IRQ_Hdlr_57
+#define TimerADCSampleInterrupt IRQ_Hdlr_56
+		
+#define TimeAliveExpire IRQ_Hdlr_57
 		
 /***********************************************************************************************************************
  * EXTERN DECLARATIONS
 ***********************************************************************************************************************/
 	
 extern const INTERRUPT_t INTERRUPT_0; 
+	
+extern const INTERRUPT_t INTERRUPT_1; 
 	
 #endif  /* INTERRUPT_EXTERN_H */
 

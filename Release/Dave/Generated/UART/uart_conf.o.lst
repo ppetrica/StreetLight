@@ -1,0 +1,271 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,4
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "uart_conf.c"
+  16              	 .section .text.NVIC_EncodePriority.constprop.1,"ax",%progbits
+  17              	 .align 1
+  18              	 .thumb
+  19              	 .thumb_func
+  21              	NVIC_EncodePriority.constprop.1:
+  22              	 
+  23              	 
+  24              	 
+  25 0000 00F00700 	 and r0,r0,#7
+  26 0004 C0F10702 	 rsb r2,r0,#7
+  27 0008 062A     	 cmp r2,#6
+  28 000a 28BF     	 it cs
+  29 000c 0622     	 movcs r2,#6
+  30 000e 00B1     	 cbz r0,.L2
+  31 0010 0138     	 subs r0,r0,#1
+  32              	.L2:
+  33 0012 0123     	 movs r3,#1
+  34 0014 9340     	 lsls r3,r3,r2
+  35 0016 013B     	 subs r3,r3,#1
+  36 0018 03FA00F0 	 lsl r0,r3,r0
+  37 001c 7047     	 bx lr
+  39              	 .section .text.BLT_init,"ax",%progbits
+  40              	 .align 1
+  41              	 .global BLT_init
+  42              	 .thumb
+  43              	 .thumb_func
+  45              	BLT_init:
+  46              	 
+  47              	 
+  48 0000 38B5     	 push {r3,r4,r5,lr}
+  49 0002 2B4D     	 ldr r5,.L6
+  50 0004 2B4C     	 ldr r4,.L6+4
+  51 0006 2C4A     	 ldr r2,.L6+8
+  52 0008 2846     	 mov r0,r5
+  53 000a 0421     	 movs r1,#4
+  54 000c FFF7FEFF 	 bl XMC_GPIO_Init
+  55 0010 2046     	 mov r0,r4
+  56 0012 2A49     	 ldr r1,.L6+12
+  57 0014 FFF7FEFF 	 bl XMC_UART_CH_Init
+  58 0018 E369     	 ldr r3,[r4,#28]
+  59 001a 23F00703 	 bic r3,r3,#7
+  60 001e E361     	 str r3,[r4,#28]
+  61 0020 2046     	 mov r0,r4
+  62 0022 1021     	 movs r1,#16
+  63 0024 0422     	 movs r2,#4
+  64 0026 0123     	 movs r3,#1
+  65 0028 FFF7FEFF 	 bl XMC_USIC_CH_TXFIFO_Configure
+  66 002c 0021     	 movs r1,#0
+  67 002e 2046     	 mov r0,r4
+  68 0030 0B46     	 mov r3,r1
+  69 0032 0422     	 movs r2,#4
+  70 0034 FFF7FEFF 	 bl XMC_USIC_CH_RXFIFO_Configure
+  71 0038 236C     	 ldr r3,[r4,#64]
+  72 003a 214A     	 ldr r2,.L6+16
+  73 003c 23F00F03 	 bic r3,r3,#15
+  74 0040 43F00203 	 orr r3,r3,#2
+  75 0044 2364     	 str r3,[r4,#64]
+  76 0046 2846     	 mov r0,r5
+  77 0048 0521     	 movs r1,#5
+  78 004a FFF7FEFF 	 bl XMC_GPIO_Init
+  79 004e 2046     	 mov r0,r4
+  80 0050 1021     	 movs r1,#16
+  81 0052 0222     	 movs r2,#2
+  82 0054 FFF7FEFF 	 bl XMC_USIC_CH_SetInterruptNodePointer
+  83 0058 2046     	 mov r0,r4
+  84 005a 1021     	 movs r1,#16
+  85 005c 0122     	 movs r2,#1
+  86 005e FFF7FEFF 	 bl XMC_USIC_CH_TXFIFO_SetInterruptNodePointer
+  87 0062 184D     	 ldr r5,.L6+20
+  88 0064 2046     	 mov r0,r4
+  89 0066 1021     	 movs r1,#16
+  90 0068 0022     	 movs r2,#0
+  91 006a FFF7FEFF 	 bl XMC_USIC_CH_RXFIFO_SetInterruptNodePointer
+  92 006e 2046     	 mov r0,r4
+  93 0070 1321     	 movs r1,#19
+  94 0072 0022     	 movs r2,#0
+  95 0074 FFF7FEFF 	 bl XMC_USIC_CH_RXFIFO_SetInterruptNodePointer
+  96 0078 E868     	 ldr r0,[r5,#12]
+  97 007a 134C     	 ldr r4,.L6+24
+  98 007c C0F30220 	 ubfx r0,r0,#8,#3
+  99 0080 FFF7FEFF 	 bl NVIC_EncodePriority.constprop.1
+ 100 0084 8000     	 lsls r0,r0,#2
+ 101 0086 C0B2     	 uxtb r0,r0
+ 102 0088 84F85B03 	 strb r0,[r4,#859]
+ 103 008c 4FF00063 	 mov r3,#134217728
+ 104 0090 A360     	 str r3,[r4,#8]
+ 105 0092 E868     	 ldr r0,[r5,#12]
+ 106 0094 C0F30220 	 ubfx r0,r0,#8,#3
+ 107 0098 FFF7FEFF 	 bl NVIC_EncodePriority.constprop.1
+ 108 009c 8000     	 lsls r0,r0,#2
+ 109 009e C0B2     	 uxtb r0,r0
+ 110 00a0 84F85A03 	 strb r0,[r4,#858]
+ 111 00a4 4FF08063 	 mov r3,#67108864
+ 112 00a8 A360     	 str r3,[r4,#8]
+ 113 00aa 0020     	 movs r0,#0
+ 114 00ac 38BD     	 pop {r3,r4,r5,pc}
+ 115              	.L7:
+ 116 00ae 00BF     	 .align 2
+ 117              	.L6:
+ 118 00b0 00800248 	 .word 1208123392
+ 119 00b4 00000248 	 .word 1208090624
+ 120 00b8 00000000 	 .word .LANCHOR0
+ 121 00bc 00000000 	 .word .LANCHOR1
+ 122 00c0 00000000 	 .word .LANCHOR2
+ 123 00c4 00ED00E0 	 .word -536810240
+ 124 00c8 00E100E0 	 .word -536813312
+ 126              	 .section .text.USIC1_1_IRQHandler,"ax",%progbits
+ 127              	 .align 1
+ 128              	 .global USIC1_1_IRQHandler
+ 129              	 .thumb
+ 130              	 .thumb_func
+ 132              	USIC1_1_IRQHandler:
+ 133              	 
+ 134              	 
+ 135              	 
+ 136 0000 0148     	 ldr r0,.L9
+ 137 0002 FFF7FEBF 	 b UART_lTransmitHandler
+ 138              	.L10:
+ 139 0006 00BF     	 .align 2
+ 140              	.L9:
+ 141 0008 00000000 	 .word .LANCHOR3
+ 143              	 .section .text.USIC1_0_IRQHandler,"ax",%progbits
+ 144              	 .align 1
+ 145              	 .global USIC1_0_IRQHandler
+ 146              	 .thumb
+ 147              	 .thumb_func
+ 149              	USIC1_0_IRQHandler:
+ 150              	 
+ 151              	 
+ 152              	 
+ 153 0000 0148     	 ldr r0,.L12
+ 154 0002 FFF7FEBF 	 b UART_lReceiveHandler
+ 155              	.L13:
+ 156 0006 00BF     	 .align 2
+ 157              	.L12:
+ 158 0008 00000000 	 .word .LANCHOR3
+ 160              	 .global BLT_rx_pin_config
+ 161              	 .global BLT
+ 162              	 .global BLT_runtime
+ 163              	 .global BLT_config
+ 164              	 .global BLT_tx_pin
+ 165              	 .global BLT_tx_pin_config
+ 166              	 .global BLT_channel_config
+ 167              	 .section .rodata.BLT_tx_pin_config,"a",%progbits
+ 168              	 .align 2
+ 169              	 .set .LANCHOR2,.+0
+ 172              	BLT_tx_pin_config:
+ 173 0000 90       	 .byte -112
+ 174 0001 000000   	 .space 3
+ 175 0004 01000000 	 .word 1
+ 176 0008 02       	 .byte 2
+ 177 0009 000000   	 .space 3
+ 178              	 .section .rodata.BLT_channel_config,"a",%progbits
+ 179              	 .align 2
+ 180              	 .set .LANCHOR1,.+0
+ 183              	BLT_channel_config:
+ 184 0000 80250000 	 .word 9600
+ 185 0004 00       	 .space 1
+ 186 0005 08       	 .byte 8
+ 187 0006 08       	 .byte 8
+ 188 0007 01       	 .byte 1
+ 189 0008 10       	 .byte 16
+ 190 0009 00       	 .space 1
+ 191 000a 0000     	 .short 0
+ 192              	 .section .rodata.BLT_rx_pin_config,"a",%progbits
+ 193              	 .align 2
+ 194              	 .set .LANCHOR0,.+0
+ 197              	BLT_rx_pin_config:
+ 198 0000 00       	 .byte 0
+ 199 0001 000000   	 .space 3
+ 200 0004 01000000 	 .word 1
+ 201 0008 02       	 .byte 2
+ 202 0009 000000   	 .space 3
+ 203              	 .section .rodata.BLT_config,"a",%progbits
+ 204              	 .align 2
+ 207              	BLT_config:
+ 208 0000 00000000 	 .word BLT_channel_config
+ 209 0004 00000000 	 .word BLT_init
+ 210 0008 00000000 	 .word EndofTransmit
+ 211 000c 00000000 	 .word EndofReceive
+ 212 0010 00000000 	 .word 0
+ 213 0014 00000000 	 .word 0
+ 214 0018 00000000 	 .word 0
+ 215 001c 00000000 	 .word 0
+ 216 0020 00000000 	 .word 0
+ 217 0024 00000000 	 .word BLT_tx_pin
+ 218 0028 00       	 .byte 0
+ 219 0029 00       	 .byte 0
+ 220 002a 00       	 .byte 0
+ 221 002b 04       	 .byte 4
+ 222 002c 04       	 .byte 4
+ 223 002d 01       	 .byte 1
+ 224 002e 0000     	 .space 2
+ 225              	 .section .data.BLT,"aw",%progbits
+ 226              	 .align 2
+ 227              	 .set .LANCHOR3,.+0
+ 230              	BLT:
+ 231 0000 00000248 	 .word 1208090624
+ 232 0004 00000000 	 .word BLT_config
+ 233 0008 00000000 	 .word BLT_runtime
+ 234              	 .section .bss.BLT_runtime,"aw",%nobits
+ 235              	 .align 2
+ 238              	BLT_runtime:
+ 239 0000 00000000 	 .space 28
+ 239      00000000 
+ 239      00000000 
+ 239      00000000 
+ 239      00000000 
+ 240              	 .section .rodata.BLT_tx_pin,"a",%progbits
+ 241              	 .align 2
+ 244              	BLT_tx_pin:
+ 245 0000 00800248 	 .word 1208123392
+ 246 0004 05       	 .byte 5
+ 247 0005 000000   	 .space 3
+ 248 0008 00000000 	 .word BLT_tx_pin_config
+ 249              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart_conf.c
+    {standard input}:17     .text.NVIC_EncodePriority.constprop.1:00000000 $t
+    {standard input}:21     .text.NVIC_EncodePriority.constprop.1:00000000 NVIC_EncodePriority.constprop.1
+    {standard input}:40     .text.BLT_init:00000000 $t
+    {standard input}:45     .text.BLT_init:00000000 BLT_init
+    {standard input}:118    .text.BLT_init:000000b0 $d
+    {standard input}:127    .text.USIC1_1_IRQHandler:00000000 $t
+    {standard input}:132    .text.USIC1_1_IRQHandler:00000000 USIC1_1_IRQHandler
+    {standard input}:141    .text.USIC1_1_IRQHandler:00000008 $d
+    {standard input}:144    .text.USIC1_0_IRQHandler:00000000 $t
+    {standard input}:149    .text.USIC1_0_IRQHandler:00000000 USIC1_0_IRQHandler
+    {standard input}:158    .text.USIC1_0_IRQHandler:00000008 $d
+    {standard input}:197    .rodata.BLT_rx_pin_config:00000000 BLT_rx_pin_config
+    {standard input}:230    .data.BLT:00000000 BLT
+    {standard input}:238    .bss.BLT_runtime:00000000 BLT_runtime
+    {standard input}:207    .rodata.BLT_config:00000000 BLT_config
+    {standard input}:244    .rodata.BLT_tx_pin:00000000 BLT_tx_pin
+    {standard input}:172    .rodata.BLT_tx_pin_config:00000000 BLT_tx_pin_config
+    {standard input}:183    .rodata.BLT_channel_config:00000000 BLT_channel_config
+    {standard input}:168    .rodata.BLT_tx_pin_config:00000000 $d
+    {standard input}:179    .rodata.BLT_channel_config:00000000 $d
+    {standard input}:193    .rodata.BLT_rx_pin_config:00000000 $d
+    {standard input}:204    .rodata.BLT_config:00000000 $d
+    {standard input}:226    .data.BLT:00000000 $d
+    {standard input}:235    .bss.BLT_runtime:00000000 $d
+    {standard input}:241    .rodata.BLT_tx_pin:00000000 $d
+
+UNDEFINED SYMBOLS
+XMC_GPIO_Init
+XMC_UART_CH_Init
+XMC_USIC_CH_TXFIFO_Configure
+XMC_USIC_CH_RXFIFO_Configure
+XMC_USIC_CH_SetInterruptNodePointer
+XMC_USIC_CH_TXFIFO_SetInterruptNodePointer
+XMC_USIC_CH_RXFIFO_SetInterruptNodePointer
+UART_lTransmitHandler
+UART_lReceiveHandler
+EndofTransmit
+EndofReceive

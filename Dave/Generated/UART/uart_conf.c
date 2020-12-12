@@ -103,7 +103,7 @@ const XMC_UART_CH_CONFIG_t BLT_channel_config =
 /*Transmit pin configuration*/
 const XMC_GPIO_CONFIG_t BLT_tx_pin_config   = 
 { 
-  .mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1, 
+  .mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2, 
   .output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
   .output_strength  = XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE
 };
@@ -111,9 +111,9 @@ const XMC_GPIO_CONFIG_t BLT_tx_pin_config   =
 /*Transmit pin configuration used for initializing*/
 const UART_TX_CONFIG_t BLT_tx_pin = 
 {
-  .port = (XMC_GPIO_PORT_t *)PORT3_BASE,
+  .port = (XMC_GPIO_PORT_t *)PORT0_BASE,
   .config = &BLT_tx_pin_config,
-  .pin = 11U
+  .pin = 5U
 };
 
 /*UART APP configuration structure*/
@@ -136,7 +136,7 @@ const UART_CONFIG_t BLT_config =
   .receive_mode = UART_TRANSFER_MODE_INTERRUPT,
   .tx_fifo_size     = XMC_USIC_CH_FIFO_SIZE_16WORDS,
   .rx_fifo_size     = XMC_USIC_CH_FIFO_SIZE_16WORDS,
-  .tx_sr   = 0x3U,
+  .tx_sr   = 0x1U,
 };
 
 /*Runtime handler*/
@@ -149,7 +149,7 @@ UART_RUNTIME_t BLT_runtime =
 /*APP handle structure*/
 UART_t BLT = 
 {
-  .channel = XMC_UART2_CH1,
+  .channel = XMC_UART1_CH0,
   .config  = &BLT_config,
   .runtime = &BLT_runtime
 };
@@ -168,46 +168,46 @@ UART_STATUS_t BLT_init()
 {
   UART_STATUS_t status = UART_STATUS_SUCCESS;
   /*Configure Receive pin*/
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 12U, &BLT_rx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT0_BASE, 4U, &BLT_rx_pin_config);
   /* Initialize USIC channel in UART mode*/
-  XMC_UART_CH_Init(XMC_UART2_CH1, &BLT_channel_config);
+  XMC_UART_CH_Init(XMC_UART1_CH0, &BLT_channel_config);
   /*Set input source path*/
-  XMC_USIC_CH_SetInputSource(XMC_UART2_CH1, XMC_USIC_CH_INPUT_DX0, 3U);
+  XMC_USIC_CH_SetInputSource(XMC_UART1_CH0, XMC_USIC_CH_INPUT_DX0, 0U);
   /*Configure transmit FIFO*/
-  XMC_USIC_CH_TXFIFO_Configure(XMC_UART2_CH1,
+  XMC_USIC_CH_TXFIFO_Configure(XMC_UART1_CH0,
         16U,
         XMC_USIC_CH_FIFO_SIZE_16WORDS,
         1U);
   /*Configure receive FIFO*/
-  XMC_USIC_CH_RXFIFO_Configure(XMC_UART2_CH1,
+  XMC_USIC_CH_RXFIFO_Configure(XMC_UART1_CH0,
         0U,
         XMC_USIC_CH_FIFO_SIZE_16WORDS,
         0U);
   /* Start UART */
-  XMC_UART_CH_Start(XMC_UART2_CH1);
+  XMC_UART_CH_Start(XMC_UART1_CH0);
 
   /* Initialize UART TX pin */
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT3_BASE, 11U, &BLT_tx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT0_BASE, 5U, &BLT_tx_pin_config);
 
   /*Set service request for UART protocol events*/
-  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART2_CH1, XMC_USIC_CH_INTERRUPT_NODE_POINTER_PROTOCOL,
-     0U);
+  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART1_CH0, XMC_USIC_CH_INTERRUPT_NODE_POINTER_PROTOCOL,
+     2U);
   /*Set service request for tx FIFO transmit interrupt*/
-  XMC_USIC_CH_TXFIFO_SetInterruptNodePointer(XMC_UART2_CH1, XMC_USIC_CH_TXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
-      3U);
+  XMC_USIC_CH_TXFIFO_SetInterruptNodePointer(XMC_UART1_CH0, XMC_USIC_CH_TXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
+      1U);
   /*Set service request for rx FIFO receive interrupt*/
-  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART2_CH1, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
-       0x2U);
-  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART2_CH1, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_ALTERNATE,
-       0x2U);
+  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART1_CH0, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
+       0x0U);
+  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART1_CH0, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_ALTERNATE,
+       0x0U);
   /*Set priority and enable NVIC node for transmit interrupt*/
-  NVIC_SetPriority((IRQn_Type)99, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
+  NVIC_SetPriority((IRQn_Type)91, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
                         63U, 0U));
-  NVIC_EnableIRQ((IRQn_Type)99);
+  NVIC_EnableIRQ((IRQn_Type)91);
   /*Set priority and enable NVIC node for receive interrupt*/
-  NVIC_SetPriority((IRQn_Type)98, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
+  NVIC_SetPriority((IRQn_Type)90, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
                       63U, 0U));
-  NVIC_EnableIRQ((IRQn_Type)98);
+  NVIC_EnableIRQ((IRQn_Type)90);
   return status;
 }
 /*Interrupt handlers*/

@@ -119,7 +119,7 @@ XMC_VADC_CHANNEL_CONFIG_t  Channel_A_ch_config =
   .event_gen_criteria         = (uint32_t) XMC_VADC_CHANNEL_EVGEN_NEVER, /*Channel Event disabled */
   .sync_conversion  		  = (uint32_t) 0,                            /* Sync feature disabled*/
   .alternate_reference        = (uint32_t) XMC_VADC_CHANNEL_REF_INTREF,  /* Internal reference selected */
-  .result_reg_number          = (uint32_t) 3,                           /* GxRES[3] selected */
+  .result_reg_number          = (uint32_t) 15,                           /* GxRES[15] selected */
   .use_global_result          = (uint32_t) 0, 				             /* Use Group result register*/
   .result_alignment           = (uint32_t) XMC_VADC_RESULT_ALIGN_RIGHT,  /* Result alignment - Right Aligned*/
   .broken_wire_detect_channel = (uint32_t) XMC_VADC_CHANNEL_BWDCH_VAGND, /* No Broken wire mode select*/
@@ -142,9 +142,9 @@ XMC_VADC_RESULT_CONFIG_t Channel_A_res_config =
 /* Channel_A ADC channel Handle */
 ADC_MEASUREMENT_CHANNEL_t ADC_MEASUREMENT_Channel_A_handle =
 {
-  .ch_num        = (uint8_t) 2,
-  .group_handle  = (VADC_G_TypeDef*)(void*) VADC_G1,
-  .group_index	 = (uint8_t) 1,
+  .ch_num        = (uint8_t) 6,
+  .group_handle  = (VADC_G_TypeDef*)(void*) VADC_G0,
+  .group_index	 = (uint8_t) 0,
   .ch_handle	 = (XMC_VADC_CHANNEL_CONFIG_t*) &Channel_A_ch_config,
   .res_handle	 = (XMC_VADC_RESULT_CONFIG_t*) &Channel_A_res_config, 
 };

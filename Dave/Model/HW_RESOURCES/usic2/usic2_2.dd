@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/48.0.0/peripheral/usic/2" description="Universal Serial Interface Controller 2" baseAddress="0x48024008">
   <provided xsi:type="ResourceModel:ResourceGroup" name="1" URI="http://resources/48.0.0/peripheral/usic/2/channel/1">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_12/UART_0.app#//@hwResources.0"/>
     <resourcesList name="brg" requiredResourceUri="http://resources/48.0.0/peripheral/usic/2/ch1_brg"/>
     <resourcesList name="byp" requiredResourceUri="http://resources/48.0.0/peripheral/usic/2/ch1_byp"/>
     <resourcesList name="bypcr" requiredResourceUri="http://resources/48.0.0/peripheral/usic/2/ch1_bypcr"/>
