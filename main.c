@@ -87,6 +87,7 @@ uint8_t alive_time = 15;
 XMC_RTC_TIME_t gmt_time;
 
 uint8_t mode = 4;
+uint8_t last_mode = 4;
 
 uint8_t luminosity_measured;
 
@@ -109,9 +110,9 @@ int in_time_slot(const XMC_RTC_TIME_t *t) {
 }
 
 
-#define turn_on(bulb) DIGITAL_IO_SetOutputLow(&bulb)
+#define turn_off(bulb) DIGITAL_IO_SetOutputLow(&bulb)
 
-#define turn_off(bulb) DIGITAL_IO_SetOutputHigh(&bulb)
+#define turn_on(bulb) DIGITAL_IO_SetOutputHigh(&bulb)
 
 
 enum mode1_state {
@@ -135,30 +136,29 @@ int main(void) {
 
 	UART_Receive(&BLT, message, 1);
 
-	int last_mode = 4;
 	int state = 0;
 	uint8_t last_motion = 0;
 
-	turn_off(LBULB);
 	BUS_IO_Write(&LEDS, ~(1 << mode));
+	turn_off(LBULB);
 
 	while (1U) {
 		RTC_GetTime(&current_time);
 
 		if (last_mode != mode) {
-			switch(mode)
-			{
-				case ON:
-					turn_on(LBULB);
-					break;
-				case OFF:
-					turn_off(LBULB);
-					break;
+			switch(mode) {
+			case ON:
+				turn_on(LBULB);
+				break;
+			case OFF:
+				turn_off(LBULB);
+				break;
 			}
 			state = 0;
 			if (last_mode == LUMINOSITY_CTRL) {
 				TIMER_Stop(&TIMER_ADC_SAMPLE);
 			}
+			last_mode = mode;
 			BUS_IO_Write(&LEDS, ~(1 << mode));
 		}
 
@@ -188,23 +188,20 @@ int main(void) {
 			break;
 		case MOTION_CTRL:;
 			uint8_t motion = DIGITAL_IO_GetInput(&MOTION_INPUT);
-			if (last_motion == 0 && motion == 1)
-			{
+			if (last_motion == 0 && motion == 1) {
 				turn_on(LBULB);
 				TIMER_Stop(&TIMER_ALIVE);
 			}
-			else if (last_motion == 1 && motion == 0)
-			{
+			else if (last_motion == 1 && motion == 0) {
 				TIMER_Start(&TIMER_ALIVE);
 			}
+			last_motion = motion;
 			if (motion == 0)
 				DIGITAL_IO_SetOutputLow(&LED_MOTION);
 			else
 				DIGITAL_IO_SetOutputHigh(&LED_MOTION);
 			break;
 		}
-
-		last_mode = mode;
 	}
 
 	return 1;
@@ -288,6 +285,7 @@ void EndofReceive() //Callback function for "End of receive" event.
 			RTC_SetTime(&gmt_time);
 			break;
 		case MODE:
+			last_mode = mode;
 			mode = message[1];
 			break;
 		}
@@ -313,11 +311,15 @@ void EndofMeasure() {
 /** ADC Timer */
 
 void TimerADCSampleInterrupt() {
+	TIMER_ClearEvent(&TIMER_ADC_SAMPLE);
 	DIGITAL_IO_ToggleOutput(&TIMER_ADC_LED);
 	ADC_MEASUREMENT_StartConversion(&ADC_LUMINOSITY);
 }
 
+/** Alive Timer **/
 
 void TimerAliveExpire() {
+	TIMER_ClearEvent(&TIMER_ALIVE);
+	TIMER_Stop(&TIMER_ALIVE);
 	turn_off(LBULB);
 }

@@ -57,10 +57,10 @@
 const DIGITAL_IO_t LBULB =
 {
   .gpio_port = XMC_GPIO_PORT0,
-  .gpio_pin = 3U,
+  .gpio_pin = 11U,
   .gpio_config = {
     .mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
-    .output_level = XMC_GPIO_OUTPUT_LEVEL_HIGH,
+    .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW,
 
   },
   .hwctrl = XMC_GPIO_HWCTRL_DISABLED

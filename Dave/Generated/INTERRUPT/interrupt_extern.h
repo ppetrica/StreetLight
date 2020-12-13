@@ -58,7 +58,7 @@
 	
 #define TimerADCSampleInterrupt IRQ_Hdlr_56
 		
-#define TimeAliveExpire IRQ_Hdlr_57
+#define TimerAliveExpire IRQ_Hdlr_57
 		
 /***********************************************************************************************************************
  * EXTERN DECLARATIONS
